@@ -8,22 +8,21 @@ function getCodeSlug(foo){
 	var funcname = pageData['metaData']['name'];
 	return [codeSlug,funcname];
 }
-
+// If any future breaks happen, its most likely because of the tag, class name, id changes
 function getSamples(data){
 	var doc = new DOMParser().parseFromString(data, "text/html");
-	d = doc.getElementsByTagName('pre');
+	d = doc.getElementsByClassName('example-block');// Each example block contains output and input
 	var inputs = [];
 	var outputs = [];
 	for(let i=0;i<d.length;i++){
 		var preText = d[i].innerHTML;
-		var input = preText.slice(preText.indexOf("<strong>Input:</strong>")+"<strong>Input:</strong>".length,preText.indexOf("<strong>Output:</strong>")).trim()
-		var output = preText.slice(preText.indexOf("<strong>Output:</strong>")+"<strong>Output:</strong>".length)
-		if (output.indexOf("<strong>")!=-1){
-			output = output.slice(0,output.indexOf("<strong>"));
-		}
-		output=output.trim();
+		var input = preText.slice(preText.indexOf("<p><strong>Input:</strong> <span class=\"example-io\">") + "<p><strong>Input:</strong> <span class=\"example-io\">".length, preText.indexOf("</span></p>")).trim();
 		inputs.push(input);
-		outputs.push(output);
+		var outputIndex = preText.indexOf("<p><strong>Output:</strong> <span class=\"example-io\">")
+		if (outputIndex != -1){
+			var output = preText.slice(outputIndex + "<p><strong>Output:</strong> <span class=\"example-io\">".length, preText.indexOf("</span></p>", outputIndex)).trim();
+			outputs.push(output);
+		}
 	}
 	return [inputs,outputs]
 }
