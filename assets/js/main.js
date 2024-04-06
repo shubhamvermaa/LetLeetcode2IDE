@@ -8,10 +8,10 @@ function getCodeSlug(foo){
 	var funcname = pageData['metaData']['name'];
 	return [codeSlug,funcname];
 }
-// If any future breaks happen, its most likely because of the tag, class name, id changes
+// If any future breaks happen, its most likely because of the 'tag', 'ClassName', 'Id' changes.
 function getSamples(data){
 	var doc = new DOMParser().parseFromString(data, "text/html");
-	d = doc.getElementsByClassName('example-block');// Each example block contains output and input
+	d = doc.getElementsByClassName('example-block');// Each example block contains output and input.
 	var inputs = [];
 	var outputs = [];
 	for(let i=0;i<d.length;i++){
