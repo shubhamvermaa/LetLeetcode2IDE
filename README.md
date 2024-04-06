@@ -1,5 +1,5 @@
-# Leetcode2IDE
-Problem parser designed for Leetcode
+# LetLeetcode2IDE
+Problem parser designed for Leetcode fixed by me.
 
 
 Link : [Click](https://s-i-d-d-i-s.github.io/Leetcode2IDE/)
