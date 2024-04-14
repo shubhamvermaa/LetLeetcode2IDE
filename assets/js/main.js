@@ -8,19 +8,18 @@ function getCodeSlug(foo){
 	var funcname = pageData['metaData']['name'];
 	return [codeSlug,funcname];
 }
-// If any future breaks happen, its most likely because of the 'tag', 'ClassName', 'Id' changes.
+// If any future breaks happen its most probably because of the tag, class name, id changes
 function getSamples(data){
 	var doc = new DOMParser().parseFromString(data, "text/html");
-	d = doc.getElementsByClassName('example-block');// Each example block contains output and input.
+	d = doc.getElementsByClassName('example-io');// Each example-io contains input and output
 	var inputs = [];
 	var outputs = [];
 	for(let i=0;i<d.length;i++){
-		var preText = d[i].innerHTML;
-		var input = preText.slice(preText.indexOf("<p><strong>Input:</strong> <span class=\"example-io\">") + "<p><strong>Input:</strong> <span class=\"example-io\">".length, preText.indexOf("</span></p>")).trim();
-		inputs.push(input);
-		var outputIndex = preText.indexOf("<p><strong>Output:</strong> <span class=\"example-io\">")
-		if (outputIndex != -1){
-			var output = preText.slice(outputIndex + "<p><strong>Output:</strong> <span class=\"example-io\">".length, preText.indexOf("</span></p>", outputIndex)).trim();
+		if(i % 2 == 0) {// input
+			let input = d[i].innerHTML;
+			inputs.push(input);
+		} else {// output
+			let output = d[i].innerHTML;
 			outputs.push(output);
 		}
 	}
